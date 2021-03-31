@@ -75,7 +75,4 @@ Todos los detalles de el contenedor estan en el Dockerfile
 
 # Platform:
 
-
-
-
-
+d65fjqaa1szhj.cloudfront.net

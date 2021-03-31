@@ -1,7 +1,10 @@
 # Dedpool powered by Theta
  Dedpool Dynamic Gambling for League of Legends Powered by Theta
 
+ # Table of Contents:
+
 - [Dedpool powered by Theta](#dedpool-powered-by-theta)
+- [Table of Contents:](#table-of-contents)
 - [Introduction:](#introduction)
 - [Solution:](#solution)
 - [Software and Services:](#software-and-services)

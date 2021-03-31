@@ -1,8 +1,9 @@
-//import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
 import BetBox from "./betbox"
 import Carrousel from "./components/carrousel"
+import {isMobile} from "react-device-detect"
 
 function makeid(length) {
   var result = '';
@@ -70,19 +71,33 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header" >
-          {
-            //<img style={{ width: "20%", height: "20%" }} src={logo} className="App-logo" alt="logo" />
-          }
-          <Carrousel
-            elements={this.state.components}
-          />
-        </header>
-      </div>
-    );
-  }
+    if(isMobile){
+      return (
+        <div className="App">
+          <header className="App-header" >
+              <img style={{ width: "70%", height: "70%" }} src={logo} className="App-logo" alt="logo" />
+              <br />
+            <Carrousel
+              elements={this.state.components}
+            />
+          </header>
+        </div>
+      );
+    }
+    
+    else{
+      return (
+        <div className="App">
+          <header className="App-header" >
+              <img style={{ width: "20%", height: "20%" }} src={logo} className="App-logo" alt="logo" />
+            <Carrousel
+              elements={this.state.components}
+            />
+          </header>
+        </div>
+      );
+    }
+    } 
 }
 
 export default App;

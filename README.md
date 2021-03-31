@@ -11,6 +11,7 @@
 - [General Diagram:](#general-diagram)
 - [AI Diagram:](#ai-diagram)
 - [VM Setup:](#vm-setup)
+- [Platform:](#platform)
 
 # Introduction:
 
@@ -71,6 +72,10 @@ Para poder instalar el contenedor y correrlo adecuadamente tenemos que instalar 
     docker run Theta_Ledger
 
 Todos los detalles de el contenedor estan en el Dockerfile
+
+# Platform:
+
+
 
 
 

@@ -1,0 +1,1 @@
+thetacli query account --address=$1

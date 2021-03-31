@@ -1,0 +1,5 @@
+#!/bin/bash
+
+theta start --config=../privatenet/node --password="qwertyuiop"
+
+exit 0

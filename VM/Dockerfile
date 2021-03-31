@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1.16.2
 ENV GOPATH=/app
 ENV PATH=$GOPATH/bin:$PATH
 RUN export THETA_HOME=$GOPATH/src/github.com/thetatoken/theta
@@ -12,5 +12,4 @@ RUN cp -r ./integration/privatenet ../privatenet
 RUN mkdir ~/.thetacli
 RUN cp -r ./integration/privatenet/thetacli/* ~/.thetacli/
 RUN chmod 700 ~/.thetacli/keys/encrypted
-EXPOSE 28888
 CMD bash theta_start.sh

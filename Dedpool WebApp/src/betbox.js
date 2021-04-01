@@ -5,7 +5,9 @@ import {
     CardTitle, CardSubtitle, Button, Col, Row
 } from 'reactstrap';
 
-import {MQTTKEY} from "./pass.js"
+import { MQTTKEY } from "./pass.js"
+
+import Modals from "./components/modal"
 
 function makeid(length) {
     var result = '';
@@ -33,6 +35,7 @@ class BetBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            modal_state: false,
             blue: "1",
             red: "1",
             betW: this.props.betW,
@@ -52,7 +55,6 @@ class BetBox extends Component {
     }
 
     componentDidMount() {
-
         let _this = this
         client.on('connect', function () {
             console.log("Connection OK")
@@ -93,9 +95,32 @@ class BetBox extends Component {
 
         client.on('message', function (topic, message) {
             const note = message.toString();
-            console.log(note)
             if (topic === "/time") {
                 const note = message.toString();
+                const a = note.split(":");
+                const seconds = (+a[0]) * 60 + (+a[1]);
+                if (_this.props.event === "FIRST BLOOD!") {
+                    if (seconds < 120) {
+                        _this.setState({
+                            betW:"10"
+                        })
+                    }
+                    else if (seconds < 180) {
+                        _this.setState({
+                            betW:"5"
+                        })
+                    }
+                    else if (seconds < 240) {
+                        _this.setState({
+                            betW:"3"
+                        })
+                    }
+                    else {
+                        _this.setState({
+                            betW:"1"
+                        })
+                    }
+                }
                 if (note !== "") {
                     _this.setState({
                         time: note
@@ -111,6 +136,100 @@ class BetBox extends Component {
             else if (topic === "/score") {
                 const note = message.toString().split(",");
                 if (note !== ",") {
+                    const tempW = parseInt(note[1]) 
+                    const tempL = parseInt(note[0]) 
+                    if (_this.props.event === "VICTORY!"){
+                        if((tempW-tempL>100)){
+                            _this.setState({
+                                betW:"1000",
+                                betL:"1"
+                            })
+                        }
+                        else if((tempW-tempL>50)){
+                            _this.setState({
+                                betW:"100",
+                                betL:"1"
+                            })
+                        }
+                        else if((tempW-tempL>30)){
+                            _this.setState({
+                                betW:"50",
+                                betL:"1"
+                            })  
+                        }
+                        else if((tempW-tempL>15)){
+                            _this.setState({
+                                betW:"10",
+                                betL:"1"
+                            })
+                        }
+                        else if((tempW-tempL>10)){
+                            _this.setState({
+                                betW:"5",
+                                betL:"1"
+                            })
+                        }
+                        else if((tempW-tempL>6)){
+                            _this.setState({
+                                betW:"3",
+                                betL:"1"
+                            })
+                        } 
+                        else if((tempW-tempL>3)){
+                            _this.setState({
+                                betW:"2",
+                                betL:"1"
+                            })
+                        }
+                        else if((tempL-tempW>100)){
+                            _this.setState({
+                                betW:"1",
+                                betL:"1000"
+                            })
+                        }
+                        else if((tempL-tempW>50)){
+                            _this.setState({
+                                betW:"1",
+                                betL:"100"
+                            })
+                        }
+                        else if((tempL-tempW>30)){
+                            _this.setState({
+                                betW:"1",
+                                betL:"50"
+                            })
+                        }
+                        else if((tempL-tempW>15)){
+                            _this.setState({
+                                betW:"1",
+                                betL:"10"
+                            })
+                        }
+                        else if((tempL-tempW>10)){
+                            _this.setState({
+                                betW:"1",
+                                betL:"5"
+                            })
+                        } 
+                        else if((tempL-tempW>6)){
+                            _this.setState({
+                                betW:"1",
+                                betL:"3"
+                            })
+                        }
+                        else if((tempL-tempW>3)){
+                            _this.setState({
+                                betW:"1",
+                                betL:"2"
+                            })
+                        }
+                        else{
+                            _this.setState({
+                                betW:"1",
+                                betL:"1"
+                            })
+                        }  
+                    }                                                         
                     _this.setState({
                         blue: note[1],
                         red: note[0],
@@ -120,7 +239,13 @@ class BetBox extends Component {
             else if (topic === "/event") {
                 const note = message.toString();
                 if (note === _this.props.event && _this.state.bet0 !== "Yes" && _this.state.bet0 !== "Bet" && !_this.state.buttonState) {
+                    setTimeout(() => {
+                        _this.setState({
+                            modal_state: false
+                        })
+                    }, 5000);
                     _this.setState({
+                        modal_state: true,
                         event: note,
                         buttonState: true
                     })
@@ -160,7 +285,7 @@ class BetBox extends Component {
             })
             console.log(parseInt(this.state.bet0))
             if (!selector) {
-                if(isNaN(parseInt(this.state.bet0))) {
+                if (isNaN(parseInt(this.state.bet0))) {
                     this.setState({
                         bet0: 10 * parseInt(this.state.betW)
                     })
@@ -172,7 +297,7 @@ class BetBox extends Component {
                 }
             }
             else {
-                if(isNaN(parseInt(this.state.bet1))) {
+                if (isNaN(parseInt(this.state.bet1))) {
                     this.setState({
                         bet1: 10 * parseInt(this.state.betL)
                     })
@@ -190,16 +315,15 @@ class BetBox extends Component {
         if (isMobile) {
             return (
                 <div style={{ width: "100vw" }}>
+                    <Modals modal={this.state.modal_state} eventName={this.props.event} />
                     <Card
                     >
                         <div style={{ color: "black" }}>
                             Theta fuel Balance: {this.state.balance}
                         </div>
                         <CardBody>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">{this.state.blue} VS {this.state.red}</CardSubtitle>
+                            <CardSubtitle tag="h6" className="mb-2 text-muted">{this.state.blue} VS {this.state.red} | {this.state.time}</CardSubtitle>
                             <CardTitle style={{ color: "black", fontSize: "1.4rem" }}>{this.props.event}</CardTitle>
-                            <CardTitle style={{ color: "black", fontSize: "1.4rem" }}>{this.state.time}</CardTitle>
-                            <CardTitle style={{ color: "black", fontSize: "1.4rem" }}>{this.state.event}</CardTitle>
                             <Row md="3">
                                 <Col>
                                     <Button disabled={this.state.buttonState} onClick={() => this.addChannelPoints(0)} color="twitch">{this.state.bet0}</Button>
@@ -219,16 +343,15 @@ class BetBox extends Component {
         else {
             return (
                 <div style={{ width: "90vw" }}>
+                    <Modals modal={this.state.modal_state} eventName={this.props.event} />
                     <Card
                     >
                         <div style={{ color: "black" }}>
                             Theta fuel Balance: {this.state.balance}
                         </div>
                         <CardBody>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">{this.state.blue} VS {this.state.red}</CardSubtitle>
+                            <CardSubtitle tag="h6" className="mb-2 text-muted">Score: {this.state.blue} VS {this.state.red} | Time: {this.state.time}</CardSubtitle>
                             <CardTitle style={{ color: "black", fontSize: "1.4rem" }}>{this.props.event}</CardTitle>
-                            <CardTitle style={{ color: "black", fontSize: "1.4rem" }}>{this.state.time}</CardTitle>
-                            <CardTitle style={{ color: "black", fontSize: "1.4rem" }}>{this.state.event}</CardTitle>
                             <Row md="3">
                                 <Col>
                                     <Button disabled={this.state.buttonState} onClick={() => this.addChannelPoints(0)} color="twitch">{this.state.bet0}</Button>

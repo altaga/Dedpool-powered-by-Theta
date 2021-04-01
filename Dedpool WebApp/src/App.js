@@ -32,9 +32,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.addComponent(<BetBox balance={this.state.balance} betW={"1"} betL={"1"} betlW={"Bet"} betlL={"Bet"} callback={this.callback} event="WIN vs LOSE" />)
+    this.addComponent(<BetBox balance={this.state.balance} betW={"1"} betL={"1"} betlW={"Bet"} betlL={"Bet"} callback={this.callback} event="VICTORY!" />)
     this.addComponent(<BetBox balance={this.state.balance} betW={"10"} betL={"1"} betlW={"Yes"} betlL={"No"} callback={this.callback} event="PENTAKILL!" />)
-    this.addComponent(<BetBox balance={this.state.balance} betW={"5"} betL={"1"} betlW={"Yes"} betlL={"No"} callback={this.callback} event="SHUTDOWN!" />)
+    this.addComponent(<BetBox balance={this.state.balance} betW={"2"} betL={"1"} betlW={"Yes"} betlL={"No"} callback={this.callback} event="SHUTDOWN!" />)
+    this.addComponent(<BetBox balance={this.state.balance} betW={"1"} betL={"1"} betlW={"Yes"} betlL={"No"} callback={this.callback} event="FIRST BLOOD!" />)
     this.forceUpdate()
   }
 

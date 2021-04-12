@@ -76,7 +76,9 @@ class App extends Component {
       return (
         <div className="App">
           <header className="App-header" >
-              <img style={{ width: "70%", height: "70%" }} src={logo} className="App-logo" alt="logo" />
+            {
+              //<img style={{ width: "70%", height: "70%" }} src={logo} className="App-logo" alt="logo" />
+            }
               <br />
             <Carrousel
               elements={this.state.components}
@@ -90,7 +92,9 @@ class App extends Component {
       return (
         <div className="App">
           <header className="App-header" >
-              <img style={{ width: "20%", height: "20%" }} src={logo} className="App-logo" alt="logo" />
+          {
+              //<img style={{ width: "20%", height: "20%" }} src={logo} className="App-logo" alt="logo" />
+          }
             <Carrousel
               elements={this.state.components}
             />

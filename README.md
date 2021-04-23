@@ -115,7 +115,7 @@ First Blood Event:
 
 # AI Diagram:
 
-Los eventos, score y tiempo de partida se realizan mediante el analisis de los caracteres en pantalla, utilizando una libreria de reconocimiento de caracteres como lo es Tesseract OCR de Google, para los eventos durante el juego y modelos de machine learning basados en mnist mediante el framework de tensorflow, especialmente entrenados para reconocer caracteres mas especificos como el score y el tiempo de partida.
+The events, score and game time are obtained by analyzing the characters on the screen, using a character recognition library such as Google's Tesseract OCR. For this we employ machine learning models based on mnist through the tensorflow framework, specially trained to recognize more specific characters such as score and starting time.
 
 <img src="./Images/ai.png">
 

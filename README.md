@@ -176,6 +176,7 @@ https://youtu.be/W4QksA5qlTU
 
 # Theta Test Stream:
 
-![image](https://user-images.githubusercontent.com/36020837/115928294-7f4a2480-a44b-11eb-82a7-d7d9c5319987.png)
+![image](https://user-images.githubusercontent.com/36020837/115928500-ce905500-a44b-11eb-8182-289fce22ac33.png)
+
 https://www.theta.tv/video/vid9iig80weetgf30t6
 

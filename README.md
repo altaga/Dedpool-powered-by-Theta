@@ -8,12 +8,12 @@
 - [Introduction:](#introduction)
 - [Solution:](#solution)
 - [Software and Services:](#software-and-services)
-- [General Diagram:](#general-diagram)
+- [Development:](#development)
   - [Backend:](#backend)
   - [Frontend:](#frontend)
   - [Logic Examples:](#logic-examples)
 - [AI Diagram:](#ai-diagram)
-- [Demo Real Time:](#demo-real-time)
+- [Real Time Demo:](#real-time-demo)
 - [VM Setup:](#vm-setup)
 - [Cool Video:](#cool-video)
 
@@ -86,7 +86,7 @@ https://www.tensorflow.org
 - Theta Ledger:
 https://github.com/thetatoken/theta-protocol-ledger
 
-# General Diagram:
+# Development:
 
 ## Backend:
 On the backend we have 2 servers running at the same time.
